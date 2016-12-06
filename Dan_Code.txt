@@ -12,3 +12,27 @@ Adafruit_DCMotor* rightBackMotor = AFMS.getMotor(RIGHT_BACK_MOTOR);
 #define RIGHT_BACK_MOTOR 2
 #define LEFT_BACK_MOTOR 3
 #define RIGHT_BACK_MOTOR 4
+const int pingPin = 7;
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  pinMode(pingPin, OUTPUT);
+  digitalWrite(pingPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pingPin, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(pingPin, LOW);
+
+  pinMode(pingPin, INPUT);
+  float duration = pulseIn(pingPin, HIGH);
+
+  float inches = duration/147.492;
+  
+  Serial.print(inches);
+  Serial.println("inches");
+  delay(100);
+}
